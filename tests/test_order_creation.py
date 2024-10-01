@@ -1,6 +1,7 @@
 import requests
 import pytest
 
+BASE_URL = 'https://qa-scooter.praktikum-services.ru/api/v1'
 
 class TestOrderCreation:
 
@@ -18,7 +19,7 @@ class TestOrderCreation:
             payload["color"] = color
 
         # Отправляем запрос на создание заказа
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', json=payload)
+        response = requests.post(f'{BASE_URL}/orders', data=payload)
 
         # Проверяем, что статус ответа соответствует ожиданиям
         assert response.status_code == expected_status_code, f"Неверный статус при создании заказа с цветом {color}"
@@ -33,6 +34,6 @@ class TestOrderCreation:
             # Другие поля заказа
         }
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', json=payload)
+        response = requests.post(f'{BASE_URL}/orders', data=payload)
 
         assert response.status_code == 400, "Должна быть ошибка при отсутствии обязательного поля"
