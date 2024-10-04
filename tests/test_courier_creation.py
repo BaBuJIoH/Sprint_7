@@ -49,3 +49,19 @@ class TestCourierCreation:
             "firstName": "testFirstName"
         })
         assert response.status_code == 400, "Не возвращается ошибка при отсутствии логина и пароля"
+
+    def test_create_courier_with_required_fields_only(self):
+        # Пытаемся создать курьера только с логином и паролем
+        response = requests.post(f'{BASE_URL}/courier', json={
+            "login": "testlogin",
+            "password": "testpassword"
+        })
+        assert response.status_code == 201, "Не удается создать курьера только с логином и паролем"
+        assert response.json().get('id'), "Успешное создание курьера не возвращает id"
+
+        # Удаляем созданного курьера
+        courier_id = requests.post(f'{BASE_URL}/courier/login', json={
+            "login": "testlogin",
+            "password": "testpassword"
+        }).json().get('id')
+        assert delete_courier(courier_id), "Не удалось удалить курьера"
