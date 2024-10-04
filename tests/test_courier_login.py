@@ -1,7 +1,5 @@
 import requests
-from utils import register_new_courier, delete_courier
-
-BASE_URL = 'https://qa-scooter.praktikum-services.ru/api/v1'
+from utils import register_new_courier, delete_courier, BASE_URL
 
 class TestCourierLogin:
 

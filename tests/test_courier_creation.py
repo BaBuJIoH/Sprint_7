@@ -1,7 +1,5 @@
 import requests
-from utils import register_new_courier, delete_courier
-
-BASE_URL = 'https://qa-scooter.praktikum-services.ru/api/v1'
+from utils import register_new_courier, delete_courier, BASE_URL
 
 class TestCourierCreation:
 
@@ -46,9 +44,8 @@ class TestCourierCreation:
         assert delete_courier(courier_id), "Не удалось удалить курьера"
 
     def test_create_courier_with_missing_fields(self):
-        # Создаем курьера без обязательного поля "firstName"
-        response = requests.post(f'{BASE_URL}/courier', data={
-            "login": "testlogin",
-            "password": "testpassword"
+        # Пытаемся создать курьера без логина и пароля
+        response = requests.post(f'{BASE_URL}/courier', json={
+            "firstName": "testFirstName"
         })
-        assert response.status_code == 400, "Не возвращается ошибка при отсутствии обязательного поля"
+        assert response.status_code == 400, "Не возвращается ошибка при отсутствии логина и пароля"

@@ -1,7 +1,6 @@
 import requests
 import pytest
-
-BASE_URL = 'https://qa-scooter.praktikum-services.ru/api/v1'
+from utils import BASE_URL
 
 class TestOrderCreation:
 
